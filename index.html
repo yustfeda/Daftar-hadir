@@ -196,6 +196,31 @@
             border-bottom: none; /* No border for the last row */
         }
 
+        /* Action Buttons in Table */
+        .action-buttons button {
+            width: auto;
+            padding: 6px 10px;
+            margin: 0 5px;
+            font-size: 0.85em;
+            border-radius: 5px;
+        }
+
+        .action-buttons .edit-btn {
+            background-color: #ff9800; /* Orange */
+        }
+
+        .action-buttons .edit-btn:hover {
+            background-color: #fb8c00;
+        }
+
+        .action-buttons .delete-btn {
+            background-color: #f44336; /* Red */
+        }
+
+        .action-buttons .delete-btn:hover {
+            background-color: #e53935;
+        }
+
         /* Responsive Design */
         @media (max-width: 768px) {
             .container {
@@ -232,6 +257,12 @@
                 padding: 12px 20px;
                 font-size: 1em;
             }
+
+            .action-buttons button {
+                padding: 5px 8px;
+                font-size: 0.8em;
+                margin: 0 3px;
+            }
         }
 
         @media (max-width: 480px) {
@@ -256,7 +287,7 @@
         <h1>Daftar Hadir Paskibra Kecamatan Cileles 2025</h1>
 
         <div class="form-section">
-            <h2>Formulir Kehadiran</h2>
+            <h2 id="formTitle">Formulir Kehadiran</h2>
             <form id="attendanceForm">
                 <div class="form-group">
                     <label for="nama">Nama Lengkap:</label>
@@ -279,7 +310,7 @@
                         <option value="Alfa">Alfa</option>
                     </select>
                 </div>
-                <button type="submit">Catat Kehadiran</button>
+                <input type="hidden" id="editIndex"> <button type="submit" id="submitButton">Catat Kehadiran</button>
             </form>
         </div>
 
@@ -298,7 +329,7 @@
                             <th>No. Telepon</th>
                             <th>Status</th>
                             <th>Waktu Hadir</th>
-                        </tr>
+                            <th>Aksi</th> </tr>
                     </thead>
                     <tbody>
                         </tbody>
@@ -326,6 +357,22 @@
                     year: 'numeric', month: 'numeric', day: 'numeric',
                     hour: '2-digit', minute: '2-digit', second: '2-digit'
                 });
+
+                // Tambahkan kolom Aksi
+                const actionCell = row.insertCell(6);
+                actionCell.classList.add('action-buttons');
+
+                const editButton = document.createElement('button');
+                editButton.textContent = 'Edit';
+                editButton.classList.add('edit-btn');
+                editButton.onclick = () => editAttendance(index);
+                actionCell.appendChild(editButton);
+
+                const deleteButton = document.createElement('button');
+                deleteButton.textContent = 'Hapus';
+                deleteButton.classList.add('delete-btn');
+                deleteButton.onclick = () => deleteAttendance(index);
+                actionCell.appendChild(deleteButton);
             });
         }
 
@@ -336,23 +383,61 @@
             const asalSekolah = document.getElementById('asalSekolah').value;
             const nomorTelepon = document.getElementById('nomorTelepon').value;
             const statusKehadiran = document.getElementById('statusKehadiran').value;
-            const waktuHadir = new Date().toISOString(); // Waktu saat ini
+            const editIndex = document.getElementById('editIndex').value;
 
-            const newAttendance = {
-                nama,
-                asalSekolah,
-                nomorTelepon,
-                statusKehadiran,
-                waktuHadir
-            };
+            if (editIndex === "") { // Mode tambah baru
+                const waktuHadir = new Date().toISOString(); // Waktu saat ini
+                const newAttendance = {
+                    nama,
+                    asalSekolah,
+                    nomorTelepon,
+                    statusKehadiran,
+                    waktuHadir
+                };
+                attendances.push(newAttendance);
+                alert('Kehadiran berhasil dicatat!');
+            } else { // Mode edit
+                const indexToEdit = parseInt(editIndex);
+                attendances[indexToEdit].nama = nama;
+                attendances[indexToEdit].asalSekolah = asalSekolah;
+                attendances[indexToEdit].nomorTelepon = nomorTelepon;
+                attendances[indexToEdit].statusKehadiran = statusKehadiran;
+                // Waktu hadir tidak diubah saat edit, asumsikan itu waktu awal pencatatan
+                document.getElementById('formTitle').textContent = 'Formulir Kehadiran';
+                document.getElementById('submitButton').textContent = 'Catat Kehadiran';
+                alert('Data kehadiran berhasil diperbarui!');
+            }
 
-            attendances.push(newAttendance);
             localStorage.setItem('paskibraAttendances', JSON.stringify(attendances)); // Simpan ke LocalStorage
-
             renderTable(); // Perbarui tampilan tabel
             this.reset(); // Kosongkan formulir
-            alert('Kehadiran berhasil dicatat!');
+            document.getElementById('editIndex').value = ""; // Reset index edit
         });
+
+        function editAttendance(index) {
+            const dataToEdit = attendances[index];
+            document.getElementById('nama').value = dataToEdit.nama;
+            document.getElementById('asalSekolah').value = dataToEdit.asalSekolah;
+            document.getElementById('nomorTelepon').value = dataToEdit.nomorTelepon;
+            document.getElementById('statusKehadiran').value = dataToEdit.statusKehadiran;
+            document.getElementById('editIndex').value = index; // Simpan index yang diedit
+
+            // Ubah teks tombol dan judul form untuk indikasi edit
+            document.getElementById('formTitle').textContent = 'Edit Data Kehadiran';
+            document.getElementById('submitButton').textContent = 'Perbarui Data';
+
+            // Gulir ke atas ke formulir
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function deleteAttendance(index) {
+            if (confirm(`Apakah Anda yakin ingin menghapus data kehadiran ${attendances[index].nama}?`)) {
+                attendances.splice(index, 1); // Hapus data dari array
+                localStorage.setItem('paskibraAttendances', JSON.stringify(attendances)); // Simpan perubahan
+                renderTable(); // Perbarui tampilan tabel
+                alert('Data kehadiran berhasil dihapus!');
+            }
+        }
 
         function downloadCSV() {
             if (attendances.length === 0) {
@@ -368,9 +453,10 @@
                     year: 'numeric', month: 'numeric', day: 'numeric',
                     hour: '2-digit', minute: '2-digit', second: '2-digit'
                 });
+                // Pastikan nilai diapit kutip ganda jika mengandung koma atau kutip
                 let rowData = [
                     index + 1,
-                    `"${row.nama.replace(/"/g, '""')}"`, // Handle commas/quotes in data
+                    `"${row.nama.replace(/"/g, '""')}"`,
                     `"${row.asalSekolah.replace(/"/g, '""')}"`,
                     `"${row.nomorTelepon.replace(/"/g, '""')}"`,
                     `"${row.statusKehadiran.replace(/"/g, '""')}"`,
