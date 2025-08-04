@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daftar Hadir Paskibra Kecamatan Cileles 2025</title>
+    <link rel="icon" href="https://upload.wikimedia.org/wikipedia/commons/e/e0/Lambang_Paskibraka.png" type="image/png">
+    <style>
+        /* General Body Styles */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #f0f2f5 0%, #e0e5ec 100%);
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        /* Container for better layout */
+        .container {
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            width: 100%;
+            max-width: 1200px;
+            box-sizing: border-box;
+            display: flex;
+            flex-wrap: wrap; /* Allow wrapping for responsiveness */
+            gap: 30px; /* Space between form and table */
+        }
+
+        /* Header Styles */
+        h1 {
+            color: #0d47a1; /* Darker blue */
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2.2em;
+            font-weight: 600;
+            width: 100%; /* Ensure header takes full width */
+        }
+
+        .header-logo {
+            display: block;
+            margin: 0 auto 15px auto;
+            max-height: 80px;
+        }
+
+        /* Form Section */
+        .form-section {
+            flex: 1; /* Allow form to take available space */
+            min-width: 300px; /* Minimum width for form */
+        }
+
+        .form-section h2 {
+            color: #1565c0; /* Medium blue */
+            margin-top: 0;
+            margin-bottom: 20px;
+            font-size: 1.5em;
+            border-bottom: 2px solid #e0e0e0;
+            padding-bottom: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #555;
+        }
+
+        .form-group input[type="text"],
+        .form-group input[type="tel"],
+        .form-group select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 1em;
+            box-sizing: border-box; /* Include padding in width */
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .form-group input[type="text"]:focus,
+        .form-group input[type="tel"]:focus,
+        .form-group select:focus {
+            border-color: #2196f3; /* Blue on focus */
+            box-shadow: 0 0 0 3px rgba(33, 150, 243, 0.2);
+            outline: none;
+        }
+
+        .form-group select {
+            appearance: none; /* Remove default select arrow */
+            background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2020%2020%22%3E%3Cpath%20fill%3D%22%23666%22%20d%3D%22M7%2010L12%2015l5-5H7z%22%2F%3E%3C%2Fsvg%3E');
+            background-repeat: no-repeat;
+            background-position: right 15px center;
+            background-size: 12px;
+        }
+
+        button {
+            background-color: #4CAF50; /* Green */
+            color: white;
+            padding: 14px 25px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.1em;
+            font-weight: 600;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            width: 100%; /* Full width button */
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background-color: #45a049; /* Darker green on hover */
+            transform: translateY(-2px);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        /* Table Section */
+        .table-section {
+            flex: 2; /* Allow table to take more space */
+            min-width: 450px; /* Minimum width for table */
+        }
+
+        .table-section h2 {
+            color: #1565c0; /* Medium blue */
+            margin-top: 0;
+            margin-bottom: 20px;
+            font-size: 1.5em;
+            border-bottom: 2px solid #e0e0e0;
+            padding-bottom: 10px;
+        }
+
+        .download-button {
+            background-color: #0288d1; /* Light blue */
+            margin-bottom: 20px;
+            width: auto; /* Override full width for this button */
+            padding: 10px 20px;
+            display: inline-block; /* Allow it to sit next to header if space permits */
+        }
+
+        .download-button:hover {
+            background-color: #0277bd; /* Darker light blue */
+        }
+
+        .table-container {
+            overflow-x: auto; /* Enable horizontal scrolling on small screens */
+            max-width: 100%; /* Ensure container doesn't overflow */
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+            background-color: #fff;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            border-radius: 8px;
+            overflow: hidden; /* Ensures rounded corners apply to content */
+        }
+
+        table thead th {
+            background-color: #0d47a1; /* Dark blue for header */
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+            white-space: nowrap; /* Prevent wrapping in header */
+        }
+
+        table tbody tr:nth-child(even) {
+            background-color: #f8f9fa; /* Light grey for even rows */
+        }
+
+        table tbody tr:hover {
+            background-color: #e3f2fd; /* Lighter blue on hover */
+        }
+
+        table td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #eee;
+            color: #444;
+            white-space: nowrap; /* Prevent text wrapping in cells */
+        }
+
+        table tbody tr:last-child td {
+            border-bottom: none; /* No border for the last row */
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column; /* Stack sections vertically on small screens */
+                padding: 20px;
+                gap: 20px;
+            }
+
+            h1 {
+                font-size: 1.8em;
+                margin-bottom: 20px;
+            }
+
+            .header-logo {
+                max-height: 60px;
+            }
+
+            .form-section, .table-section {
+                min-width: unset; /* Remove min-width to allow full flexibility */
+                width: 100%;
+            }
+
+            .table-container {
+                overflow-x: auto; /* Ensure scrolling for tables on small screens */
+            }
+
+            table thead th,
+            table tbody td {
+                padding: 10px; /* Smaller padding for tighter display */
+                font-size: 0.9em;
+            }
+
+            button {
+                padding: 12px 20px;
+                font-size: 1em;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+            .container {
+                padding: 15px;
+            }
+            h1 {
+                font-size: 1.5em;
+            }
+            .form-group input, .form-group select, button {
+                font-size: 0.9em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img src="Logo purnacil.PNG" alt="Logo Paskibraka" class="header-logo">
+        <h1>Daftar Hadir Paskibra Kecamatan Cileles 2025</h1>
+
+        <div class="form-section">
+            <h2>Formulir Kehadiran</h2>
+            <form id="attendanceForm">
+                <div class="form-group">
+                    <label for="nama">Nama Lengkap:</label>
+                    <input type="text" id="nama" name="nama" required placeholder="Contoh: Budi Santoso">
+                </div>
+                <div class="form-group">
+                    <label for="asalSekolah">Asal Sekolah:</label>
+                    <input type="text" id="asalSekolah" name="asalSekolah" required placeholder="Contoh: SMA Negeri 1 Cileles">
+                </div>
+                <div class="form-group">
+                    <label for="nomorTelepon">Nomor Telepon:</label>
+                    <input type="tel" id="nomorTelepon" name="nomorTelepon" required placeholder="Contoh: 0812-3456-7890">
+                </div>
+                <div class="form-group">
+                    <label for="statusKehadiran">Status Kehadiran:</label>
+                    <select id="statusKehadiran" name="statusKehadiran" required>
+                        <option value="Hadir">Hadir</option>
+                        <option value="Izin">Izin</option>
+                        <option value="Sakit">Sakit</option>
+                        <option value="Alfa">Alfa</option>
+                    </select>
+                </div>
+                <button type="submit">Catat Kehadiran</button>
+            </form>
+        </div>
+
+        <div class="table-section">
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;">
+                <h2>Daftar Kehadiran</h2>
+                <button class="download-button" onclick="downloadCSV()">Download CSV</button>
+            </div>
+            <div class="table-container">
+                <table id="attendanceTable">
+                    <thead>
+                        <tr>
+                            <th>No.</th>
+                            <th>Nama Lengkap</th>
+                            <th>Asal Sekolah</th>
+                            <th>No. Telepon</th>
+                            <th>Status</th>
+                            <th>Waktu Hadir</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Data akan disimpan di LocalStorage browser
+        let attendances = JSON.parse(localStorage.getItem('paskibraAttendances')) || [];
+
+        function renderTable() {
+            const tableBody = document.querySelector('#attendanceTable tbody');
+            tableBody.innerHTML = ''; // Clear existing rows
+
+            attendances.forEach((data, index) => {
+                const row = tableBody.insertRow();
+                row.insertCell(0).textContent = index + 1;
+                row.insertCell(1).textContent = data.nama;
+                row.insertCell(2).textContent = data.asalSekolah;
+                row.insertCell(3).textContent = data.nomorTelepon;
+                row.insertCell(4).textContent = data.statusKehadiran;
+                row.insertCell(5).textContent = new Date(data.waktuHadir).toLocaleString('id-ID', {
+                    year: 'numeric', month: 'numeric', day: 'numeric',
+                    hour: '2-digit', minute: '2-digit', second: '2-digit'
+                });
+            });
+        }
+
+        document.getElementById('attendanceForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Mencegah halaman reload
+
+            const nama = document.getElementById('nama').value;
+            const asalSekolah = document.getElementById('asalSekolah').value;
+            const nomorTelepon = document.getElementById('nomorTelepon').value;
+            const statusKehadiran = document.getElementById('statusKehadiran').value;
+            const waktuHadir = new Date().toISOString(); // Waktu saat ini
+
+            const newAttendance = {
+                nama,
+                asalSekolah,
+                nomorTelepon,
+                statusKehadiran,
+                waktuHadir
+            };
+
+            attendances.push(newAttendance);
+            localStorage.setItem('paskibraAttendances', JSON.stringify(attendances)); // Simpan ke LocalStorage
+
+            renderTable(); // Perbarui tampilan tabel
+            this.reset(); // Kosongkan formulir
+            alert('Kehadiran berhasil dicatat!');
+        });
+
+        function downloadCSV() {
+            if (attendances.length === 0) {
+                alert('Tidak ada data kehadiran untuk diunduh.');
+                return;
+            }
+
+            let csvContent = "data:text/csv;charset=utf-8,";
+            csvContent += "No.,Nama Lengkap,Asal Sekolah,Nomor Telepon,Status Kehadiran,Waktu Hadir\n";
+
+            attendances.forEach((row, index) => {
+                const formattedTime = new Date(row.waktuHadir).toLocaleString('id-ID', {
+                    year: 'numeric', month: 'numeric', day: 'numeric',
+                    hour: '2-digit', minute: '2-digit', second: '2-digit'
+                });
+                let rowData = [
+                    index + 1,
+                    `"${row.nama.replace(/"/g, '""')}"`, // Handle commas/quotes in data
+                    `"${row.asalSekolah.replace(/"/g, '""')}"`,
+                    `"${row.nomorTelepon.replace(/"/g, '""')}"`,
+                    `"${row.statusKehadiran.replace(/"/g, '""')}"`,
+                    `"${formattedTime.replace(/"/g, '""')}"`
+                ];
+                csvContent += rowData.join(',') + "\n";
+            });
+
+            const encodedUri = encodeURI(csvContent);
+            const link = document.createElement("a");
+            link.setAttribute("href", encodedUri);
+            link.setAttribute("download", "daftar_hadir_paskibra_cileles_2025.csv");
+            document.body.appendChild(link); // Required for Firefox
+            link.click();
+            document.body.removeChild(link); // Clean up
+        }
+
+        // Panggil renderTable saat halaman pertama kali dimuat
+        document.addEventListener('DOMContentLoaded', renderTable);
+    </script>
+</body>
+</html>
